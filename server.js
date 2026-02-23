@@ -1804,7 +1804,6 @@ const recipeMapping = {
     'Fried Chicken',
     'Pancit Bihon',
     'Pancit Canton + Bihon (Mixed)',
-    'Clubhouse Sandwich'
 ],
 'butter': [
     'Buttered Honey Chicken',

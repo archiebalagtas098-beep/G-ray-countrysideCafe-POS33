@@ -745,6 +745,122 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+(function() {
+    // Create hamburger menu element and add it to navbar
+    function initMobileMenu() {
+        const navbar = document.querySelector('.navbar') || document.querySelector('.header-navbar');
+        if (!navbar) return;
+
+        // Check if hamburger menu already exists
+        if (document.querySelector('.hamburger-menu')) return;
+
+        // Create hamburger menu
+        const hamburger = document.createElement('div');
+        hamburger.className = 'hamburger-menu';
+        hamburger.id = 'hamburgerMenu';
+        hamburger.innerHTML = '<span></span><span></span><span></span>';
+
+        // Insert hamburger menu at the beginning of navbar
+        navbar.insertBefore(hamburger, navbar.firstChild);
+
+        // Create sidebar overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'sidebar-overlay';
+        overlay.id = 'sidebarOverlay';
+        document.body.appendChild(overlay);
+
+        // Get sidebar
+        const sidebar = document.querySelector('.sidebar');
+        if (!sidebar) return;
+
+        // Create sidebar header with close button
+        const sidebarHeader = document.createElement('div');
+        sidebarHeader.className = 'sidebar-header';
+        sidebarHeader.innerHTML = `
+            <h3>Menu</h3>
+            <button class="sidebar-close" id="closeSidebar">×</button>
+        `;
+
+        // Insert sidebar header at the beginning of sidebar
+        sidebar.insertBefore(sidebarHeader, sidebar.firstChild);
+
+        // Functions to open/close menu
+        function openMenu() {
+            hamburger.classList.add('active');
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.classList.add('menu-open');
+        }
+
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
+
+        // Event listeners
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (sidebar.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        overlay.addEventListener('click', closeMenu);
+
+        const closeBtn = document.getElementById('closeSidebar');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeMenu);
+        }
+
+        // Close menu when clicking a menu item
+        const menuItems = sidebar.querySelectorAll('ul.dashboard-menu li a, .sidebar .category-btn, .sidebar button');
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                menuItems.forEach(i => i.classList.remove('active'));
+                // Add active class to clicked item if it's a menu link
+                if (this.tagName === 'A') {
+                    this.classList.add('active');
+                }
+                // Close menu
+                closeMenu();
+            });
+        });
+
+        // Set active menu item based on current URL
+        const currentPath = window.location.pathname;
+        const links = sidebar.querySelectorAll('ul.dashboard-menu li a');
+        links.forEach(item => {
+            const href = item.getAttribute('href');
+            if (href && currentPath.includes(href)) {
+                item.classList.add('active');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                // Reset everything for desktop
+                if (sidebar.classList.contains('active')) {
+                    closeMenu();
+                }
+                // Remove inline styles
+                document.body.classList.remove('menu-open');
+            }
+        });
+    }
+
+    // Run when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+        initMobileMenu();
+    }
+})();
 </script>
 <!-- Load session manager and dashboard script -->
 <script src="/script/dashboard.js"></script>
