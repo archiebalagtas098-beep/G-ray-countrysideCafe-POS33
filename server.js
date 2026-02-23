@@ -26,6 +26,7 @@ import mongoDBInventoryService from "./services/mongoDBInventoryService.js";
 import revenueBreakdownService from "./services/revenueBreakdownService.js";
 import notificationService from "./services/notificationService.js";
 
+
 dotenv.config();
 
 const BUSINESS_INFO = {
@@ -134,7 +135,6 @@ const recipeMapping = {
     'Shrimp': [
         'Sinigang (Shrimp)',
         'Buttered Shrimp',
-        'Special Bulalo'
     ],
     'Bagnet': [
         'Paknet (Pakbet w/ Bagnet)'
@@ -234,13 +234,6 @@ const recipeMapping = {
         'Budget Fried Chicken',
         'Cream Dory Fish Fillet'
     ],
-    'Eggs': [
-        'Sizzling Pork Sisig',
-        'Fried Rice',
-        'Fried Chicken',
-        'Budget Fried Chicken',
-        'Cream Dory Fish Fillet'
-    ],
     'Butter': [
         'Buttered Honey Chicken',
         'Buttered Spicy Chicken',
@@ -262,7 +255,8 @@ const recipeMapping = {
     'Milk': [
         'Cafe Latte',
         'Caramel Macchiato',
-        'Milk Tea',
+        'Milk Tea Regular HC',
+        'Milk Tea Regular MC',
         'Cookies & Cream',
         'Strawberry & Cream',
         'Mango Cheesecake',
@@ -400,7 +394,8 @@ const recipeMapping = {
         'Cafe Latte',
         'Cafe Americano',
         'Caramel Macchiato',
-        'Milk Tea',
+        'Milk Tea Regular HC',
+        'Milk Tea Regular MC',
         'Matcha Green Tea',
         'Cookies & Cream',
         'Strawberry & Cream',
@@ -472,6 +467,21 @@ const recipeMapping = {
         'Pancit Canton (M)',
         'Pancit Canton (L)'
     ],
+    'Tray (S)': [ 
+        'Pancit Canton (S)',
+        'Spaghetti (S)',
+        'Pancit Bihon (S)'
+    ],
+    'Tray (M)': [ 
+        'Pancit Canton (M)',
+        'Spaghetti (M)',
+        'Pancit Bihon (M)'
+    ],
+    'Tray (L)': [
+        'Spaghetti (L)',
+        'Pancit Canton (L)',
+        'Pancit Bihon (L)'
+    ],
     'Spaghetti pasta': [
         'Spaghetti (Filipino Style)',
         'Spaghetti (L)',
@@ -510,9 +520,8 @@ const recipeMapping = {
     'Blue syrup': [
         'Blue Lemonade'
     ],
-    'Tea': [
+    'tea': [
         'Red Tea',
-        'Milk Tea',
         'Matcha Green Tea'
     ],
     'Black tea': [
@@ -521,21 +530,109 @@ const recipeMapping = {
     'Espresso': [
         'Cafe Americano',
         'Cafe Latte',
-        'Caramel Macchiato'
+        'Caramel Macchiato Grande',
+        'Caramel Macchiato Tall'
+    ],
+    'Sweetener': [
+        'Matcha Green Tea HC',
+        'Matcha Green Tea MC',
     ],
     'Hot water': [
         'Cafe Americano',
-        'Red Tea'
+        'Cafe Latte Grande',   
+        'Matcha',
+        'Matcha Green Tea',
+        'Matcha Green Tea Tall',
+        'Matcha Green Tea HC',
+        'Matcha Green Tea MC',
+        'Matcha Regular HC',
+        'Matcha Green Tea (Glass)',
+        'Matcha Green Tea (L)',
+        'Matcha Green Tea (HC)',
+        'Red Tea (Glass)'   
+    ],
+    'Milk': [
+        'Cafe Americano',
+        'Milk Tea Regular HC',
+        'Milk Tea Regular MC',
+    ],
+    'Matcha Green Tea Powder': [
+        'Matcha Green Tea',
+        'Matcha Green Tea Tall',
+        'Matcha Green Tea HC',
+        'Matcha Green Tea MC',
+        'Matcha Regular HC',
+        'Matcha Green Tea (Glass)',
+        'Matcha Green Tea (L)',
+        'Matcha Green Tea (HC)'
+    ],
+    'Milk ': [ 
+        'Matcha Green Tea HC',
+        'Matcha Green Tea MC',
+        'Matcha Regular HC',
+        'Matcha Green Tea (Glass)',
+        'Matcha Green Tea (L)',
+        'Matcha Green Tea (HC)'
+    ],
+    'Ice': [
+        'Matcha Green Tea HC',
+        'Matcha Green Tea MC',
+        'Matcha Regular HC',
+        'Matcha Green Tea (Glass)',
+        'Matcha Green Tea (L)',
+        'Matcha Green Tea (HC)'
     ],
     'Steamed milk': [
         'Cafe Latte',
         'Caramel Macchiato'
     ],
     'Carbonated soft drink': [
-        'Soda'
+        'Soda (Mismo)',
+        'Soda 1.5L'
     ],
-    'Chicken broth': [
-        'Special Bulalo'
+    'beef broth': [
+        'Special Bulalo',
+        'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 3-4 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 1-2 Persons)'
+    ],
+     'Fish Sauce': [
+        'Special Bulalo',
+        'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 3-4 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 1-2 Persons)'
+    ],
+     'Pechay': [
+        'Special Bulalo',
+        'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 3-4 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 1-2 Persons)'
+    ],
+     'Cabbage': [
+        'Special Bulalo',
+        'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 3-4 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 1-2 Persons)'
+    ],
+    'Onion': [
+        'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 3-4 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 1-2 Persons)'
+    ],
+    'Corn on the Cob': [
+        'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 3-4 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 1-2 Persons)'
+    ],
+    'Green Beans': [
+        'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 3-4 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 1-2 Persons)'
+    ],
+    'Beef Shank': [
+        'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 3-4 Persons)',
+        'Special Bulalo Buy 1 Take 1 (good for 1-2 Persons)'
     ],
     'Coffee beans': [
         'Cafe Americano',
@@ -549,19 +646,17 @@ const recipeMapping = {
         'Caramel Macchiato'
     ],
     'Vanilla syrup': [
-        'Cafe Latte'
+       'Caramel Macchiato Grande',
+       'Caramel Macchiato Tall',
+    ],
+    'Caramel Sauce': [
+       'Caramel Macchiato Grande',
+       'Caramel Macchiato Tall'
     ],
     'Strawberry syrup': [
         'Strawberry & Cream'
     ],
     'Mango flavor': [
-        'Mango Cheesecake'
-    ],
-    'Tapioca pearls': [
-        'Milk Tea',
-        'Matcha Green Tea',
-        'Cookies & Cream',
-        'Strawberry & Cream',
         'Mango Cheesecake'
     ],
     'Cookie crumbs': [
@@ -589,7 +684,8 @@ const recipeMapping = {
         'Cafe Americano',
         'Cafe Latte',
         'Caramel Macchiato',
-        'Milk Tea',
+        'Milk Tea Regular HC',
+        'Milk Tea Regular MC',
         'Matcha Green Tea',
         'Cookies & Cream',
         'Strawberry & Cream',
@@ -600,7 +696,8 @@ const recipeMapping = {
         'Cucumber Lemonade',
         'Blue Lemonade',
         'Red Tea',
-        'Milk Tea',
+        'Milk Tea Regular HC',
+        'Milk Tea Regular MC',
         'Matcha Green Tea',
         'Cookies & Cream',
         'Strawberry & Cream',
@@ -754,8 +851,8 @@ const recipeMapping = {
         'Paper cups',
         'Straws'
     ],
-    'Milk Tea': [
-        'Tea',
+    'Milk Tea Regular HC':  [
+        'tea',
         'Milk',
         'Sugar',
         'Tapioca pearls',
@@ -763,8 +860,8 @@ const recipeMapping = {
         'Straws',
         'Ice'
     ],
-    'Milk Tea Tall': [
-        'Tea',
+    'Milk Tea Regular HC Tall': [
+        'tea',
         'Milk',
         'Sugar',
         'Tapioca pearls',
@@ -772,8 +869,8 @@ const recipeMapping = {
         'Straws',
         'Ice'
     ],
-    'Milk Tea Regular': [
-        'Tea',
+    'Milk Tea Regular HC Regular': [
+        'tea',
         'Milk',
         'Sugar',
         'Tapioca pearls',
@@ -781,8 +878,8 @@ const recipeMapping = {
         'Straws',
         'Ice'
     ],
-    'Milk Tea Large': [
-        'Tea',
+    'Milk Tea Regular HC Large': [
+        'tea',
         'Milk',
         'Sugar',
         'Tapioca pearls',
@@ -790,8 +887,8 @@ const recipeMapping = {
         'Straws',
         'Ice'
     ],
-    'Milk Tea Regular HC': [
-        'Tea',
+    'Milk Tea Regular HC Regular': [
+        'tea',
         'Milk',
         'Sugar',
         'Tapioca pearls',
@@ -799,8 +896,8 @@ const recipeMapping = {
         'Straws',
         'Ice'
     ],
-    'Milk Tea Large HC': [
-        'Tea',
+    'Milk Tea Regular HC Large': [
+        'tea',
         'Milk',
         'Sugar',
         'Tapioca pearls',
@@ -808,8 +905,8 @@ const recipeMapping = {
         'Straws',
         'Ice'
     ],
-    'Milk Tea Regular MC': [
-        'Tea',
+    'Milk Tea Regular HC Regular MC': [
+        'tea',
         'Milk',
         'Sugar',
         'Tapioca pearls',
@@ -819,66 +916,42 @@ const recipeMapping = {
     ],
     'Matcha': [
         'Matcha powder',
-        'Tea',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Tapioca pearls',
-        'Paper cups',
-        'Straws',
-        'Ice'
+        'Sugar'
     ],
     'Matcha Green Tea': [
         'Matcha powder',
-        'Tea',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Tapioca pearls',
-        'Paper cups',
-        'Straws',
-        'Ice'
+        'Sugar'
     ],
     'Matcha Green Tea Tall': [
         'Matcha powder',
-        'Tea',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Tapioca pearls',
-        'Paper cups',
-        'Straws',
-        'Ice'
+        'Sugar'
     ],
     'Matcha Green Tea HC': [
         'Matcha powder',
-        'Tea',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Tapioca pearls',
-        'Paper cups',
-        'Straws',
-        'Ice'
+        'Sugar'
     ],
     'Matcha Green Tea MC': [
         'Matcha powder',
-        'Tea',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Tapioca pearls',
-        'Paper cups',
-        'Straws',
-        'Ice'
+        'Sugar'
     ],
     'Matcha Regular HC': [
         'Matcha powder',
-        'Tea',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Tapioca pearls',
-        'Paper cups',
-        'Straws',
-        'Ice'
+        'Sugar'
     ],
     // FRAPPE BEVERAGES - map to actual ingredients
-    'Cookies & Cream Frappe': [
+    'Cookies & Cream HC': [
         'Milk',
         'Cream',
         'Cookie crumbs',
@@ -890,7 +963,7 @@ const recipeMapping = {
         'Paper cups',
         'Straws'
     ],
-    'Cookies and Cream Frappe': [
+    'Cookies and Cream MC': [
         'Milk',
         'Cream',
         'Cookie crumbs',
@@ -902,7 +975,7 @@ const recipeMapping = {
         'Paper cups',
         'Straws'
     ],
-    'Strawberry & Cream Frappe': [
+    'Strawberry & Cream HC': [
         'Milk',
         'Cream',
         'Strawberry syrup',
@@ -913,7 +986,7 @@ const recipeMapping = {
         'Paper cups',
         'Straws'
     ],
-    'Strawberry and Cream Frappe': [
+    'Strawberry and Cream MC': [
         'Milk',
         'Cream',
         'Strawberry syrup',
@@ -924,7 +997,7 @@ const recipeMapping = {
         'Paper cups',
         'Straws'
     ],
-    'Mango Cheesecake Frappe': [
+    'Mango cheese cake HC': [
         'Milk',
         'Cream',
         'Mango flavor',
@@ -1137,57 +1210,53 @@ const recipeMapping = {
         'Paper cups',
         'Straws'
     ],
-    'Milk Tea (Glass)': [
+    'Milk Tea Regular HC (Glass)': [
         'Tea',
         'Milk',
         'Sugar',
         'Tapioca pearls',
         'Paper cups',
-        'Straws'
+        'Straws',
+        'Ice'
     ],
-    'Milk Tea (L)': [
+    'Milk Tea Regular HC (Large)': [
         'Tea',
         'Milk',
         'Sugar',
         'Tapioca pearls',
         'Paper cups',
-        'Straws'
+        'Straws',
+        'Ice'
     ],
     'Matcha Green Tea (Glass)': [
         'Matcha powder',
-        'Tea',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Tapioca pearls',
-        'Paper cups',
-        'Straws'
+        'Sugar'
     ],
     'Matcha Green Tea (L)': [
         'Matcha powder',
-        'Tea',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Tapioca pearls',
-        'Paper cups',
-        'Straws'
+        'Sugar'
     ],
     'Matcha Green Tea HC': [
         'Matcha powder',
-        'Tea',
-        'Tapioca pearls',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Paper cups',
-        'Straws'
+        'Sugar'
     ],
     'Matcha Green Tea (HC)': [
         'Matcha powder',
-        'Tea',
-        'Tapioca pearls',
+        'Hot water',
         'Milk',
-        'Sugar',
-        'Paper cups',
-        'Straws'
+        'Sugar'
+    ],
+    'Matcha Green Tea MC': [
+        'Matcha powder',
+        'Hot water',
+        'Milk',
+        'Sugar'
     ],
     'Cafe Latte (Glass)': [
         'Espresso',
@@ -1265,7 +1334,7 @@ const recipeMapping = {
         'Paper cups',
         'Straws'
     ],
-    'Mango Cheesecake (Glass)': [
+    'Mango cheese cake HC': [
         'Milk',
         'Cream',
         'Mango flavor',
@@ -1274,7 +1343,7 @@ const recipeMapping = {
         'Sugar',
         'Paper cups',
     ],
-    'Mango Cheesecake (L)': [
+    'Mango cheese cake MC': [
         'Milk',
         'Cream',
         'Mango flavor',
@@ -1438,45 +1507,124 @@ const recipeMapping = {
         'Lemon juice',
         'Cooking oil'
     ],
-    'Soda (Mismo)': [
-    'Soda (Mismo)'
-],
-'Pitcher': [
-    'Cucumber Lemonade (Pitcher)'
-],
-'Lemonade': [
-    'Cucumber Lemonade (Pitcher)',
-    'Cucumber Lemonade (Glass)'
-],
-'Cucumber': [
-    'Cucumber Lemonade (Pitcher)',
-    'Cucumber Lemonade (Glass)'
-],
-'Glass': [
-    'Cucumber Lemonade (Glass)'
-],
-'Plastic bottle 1.5L': [
-    'Soda 1.5L'
-],
-'Carbonated soft drink': [
-    'Soda 1.5L'
-],
-
+    // ================ SERVING WARE ITEMS (don't contain actual ingredients) ================
+    'Tray (S)': [
+        'Pancit Canton (S)',
+        'Spaghetti (S)',
+        'Pancit Bihon (S)'
+    ],
+    'Tray (M)': [
+        'Pancit Canton (M)',
+        'Spaghetti (M)',
+        'Pancit Bihon (M)'
+    ],
+    'Tray (L)': [
+        'Pancit Canton (L)',
+        'Spaghetti (L)',
+        'Pancit Bihon (L)'
+    ],
+    'Espresso': [
+        'Cafe Americano',
+        'Cafe Latte',
+        'Caramel Macchiato',
+        'Cafe Americano Tall',
+        'Cafe Latte Tall',
+        'Caramel Macchiato Tall',
+        'Cafe Latte Grande'
+    ],
+    'Steamed Milk': [
+        'Cafe Latte',
+        'Cafe Latte Tall',
+        'Cafe Latte Grande'
+    ],
+    'Milk Foam': [
+        'Cafe Latte',
+        'Cafe Americano Tall',
+        'Cafe Latte Tall',
+        'Cafe Latte Grande'
+    ],
+    'Ice': [
+        'Milk Tea Regular HC',
+        'Milk Tea Regular MC',
+        'Soda (Glass)',
+        'Soda (Mismo)',
+        'Soda (L)',
+        'Cookies & Cream HC',
+        'Cookies and Cream HC',
+        'Strawberry & Cream HC',
+        'Mango cheese cake HC',
+        'Cookies & Cream MC',
+        'Cucumber Lemonade (Pitcher)'
+    ],
+    'Milk': [
+        'Milk Tea Regular HC',
+        'Milk Tea Regular MC',
+        'Cookies & Cream HC',
+        'Cookies and Cream HC',
+        'Strawberry & Cream HC',
+        'Mango cheese cake HC',
+        'Cookies & Cream MC',
+        'Cucumber Lemonade (Pitcher)',
+        'Caramel Macchiato Grande',
+        'Caramel Macchiato Tall',
+    ],
+    'Tapioca Pearls': [
+        'Milk Tea Regular HC',
+        'Milk Tea Regular MC',
+        'Matcha Green Tea',
+        'Cookies & Cream',
+        'Strawberry & Cream',
+        'Mango Cheesecake'
+    ],
+    'Frappe base': [
+        'Cookies and Cream HC',
+        'Cookies & Cream MC',
+        'Strawberry & Cream HC',
+        'Mango cheese cake HC'
+    ],
+    'Whipped cream': [
+        'Cookies and Cream HC',
+        'Cookies & Cream MC',
+        'Strawberry & Cream HC',
+        'Mango cheese cake HC'
+    ],
+    'Chocolate syrup': [
+        'Cookies and Cream HC',
+        'Cookies & Cream MC'
+    ],
+    'Pitcher': [
+        'Cucumber Lemonade (Pitcher)'
+    ],
+    'Plastic bottle': [
+        'Soda (Mismo)',
+        'Soda (1.5L)'
+    ],  
+    'Cookies & Cream': [ 
+        'Cookies & Cream HC',
+        'Cookies & Cream MC'
+    ],
+    
 // PORK DISHES
-'pork': [
+'Pork': [
     'Korean Spicy Bulgogi (Pork)',
     'Korean Salt and Pepper (Pork)',
-    'Sizzling Pork Sisig',
-    'Sinigang (Pork)'
 ],
-'pork_belly': [
+'Pork': [
+    'Sizzling Pork Sisig',
+    'Sizzling Liempo',
+    'Sizzling Porkchop',
+    'Pork Shanghai',
+    'Sinigang (Pork)',
+],
+
+'Pork Belly': [
     'Crispy Pork Lechon Kawali',
     'Sizzling Liempo'
 ],
-'pork_chop': [
+'Pork Chop': [
     'Sizzling Porkchop'
 ],
-'ground_pork': [
+'Ground Pork': [
     'Pork Shanghai',
     'Lumpiang Shanghai'
 ],
@@ -1525,7 +1673,6 @@ const recipeMapping = {
     'Pancit Canton + Bihon (Mixed)',
     'Spaghetti',
     'Nachos Supreme',
-    'Special Bulalo'
 ],
 'sugar': [
     'Korean Spicy Bulgogi (Pork)',
@@ -1534,13 +1681,12 @@ const recipeMapping = {
     'Cucumber Lemonade',
     'Blue Lemonade',
     'Red Tea (Glass)',
-    'Milk Tea',
     'Matcha Green Tea'
 ],
 'sesame_oil': [
     'Korean Spicy Bulgogi (Pork)'
 ],
-'chili_flakes': [
+'chili flakes': [
     'Korean Spicy Bulgogi (Pork)',
     'Buttered Spicy Chicken'
 ],
@@ -1569,7 +1715,6 @@ const recipeMapping = {
 'chili': [
     'Korean Salt and Pepper (Pork)',
     'Sizzling Pork Sisig',
-    'Cheesy Dynamite Lumpia'
 ],
 'cornstarch': [
     'Korean Salt and Pepper (Pork)'
@@ -1578,10 +1723,10 @@ const recipeMapping = {
     'Crispy Pork Lechon Kawali',
     'Chicken Adobo'
 ],
-'peppercorn': [
+'Black Pepper': [
     'Crispy Pork Lechon Kawali',
     'Chicken Adobo',
-    'Special Bulalo'
+    'Korean Salt and Pepper (Pork)',
 ],
 'cooking_oil': [
     'Crispy Pork Lechon Kawali',
@@ -1622,6 +1767,9 @@ const recipeMapping = {
     'Pork Shanghai',
     'Cheesy Dynamite Lumpia',
     'Lumpiang Shanghai'
+],
+'Siling green': [
+    'Cheesy Dynamite Lumpia'
 ],
 'calamansi': [
     'Sizzling Pork Sisig'
@@ -1702,29 +1850,37 @@ const recipeMapping = {
 ],
 'potato': [
     'Fish and Fries',
-    'French Fries',
-    'Special Bulalo'
+    'French Fries', 
 ],
 
 // PANCIT & PASTA
-'rice_noodles': [
+'Bihon noodles': [
+    'Pancit Canton (L)',
+    'Pancit Canton (M)',
+    'Pancit Canton (S)',
     'Pancit Bihon',
-    'Pancit Canton + Bihon (Mixed)'
-],
-'pancit_canton': [
     'Pancit Canton + Bihon (Mixed)'
 ],
 'cabbage': [
-    'Pancit Bihon',
     'Pancit Canton + Bihon (Mixed)',
-    'Special Bulalo'
+    'Pancit Bihon',
+    'Pancit Canton (L)',
+    'Pancit Canton (M)',
+    'Pancit Canton (S)'
 ],
 'oyster_sauce': [
-    'Pancit Bihon',
-    'Pancit Canton + Bihon (Mixed)'
+    'Pancit Canton + Bihon (Mixed)',
+    'Pancit Canton (L)',
+    'Pancit Canton (M)',
+    'Pancit Canton (S)',
+    'Pancit Bihon'
 ],
 'chicken_broth': [
-    'Pancit Canton + Bihon (Mixed)'
+    'Pancit Canton + Bihon (Mixed)',
+    'Pancit Canton (L)',
+    'Pancit Canton (M)',
+    'Pancit Canton (S)',
+    'Pancit Bihon'
 ],
 'spaghetti_pasta': [
     'Spaghetti'
@@ -1773,12 +1929,6 @@ const recipeMapping = {
 ],
 
 // SOUPS & VEGETABLES
-'beef_shank': [
-    'Special Bulalo'
-],
-'corn': [
-    'Special Bulalo'
-],
 'bagnet': [
     'Paknet (Pakbet w/ Bagnet)'
 ],
@@ -1830,20 +1980,22 @@ const recipeMapping = {
     'Blue Lemonade',
     'Red Tea (Glass)',  // Fixed: Changed from 'Red Tea' to 'Red Tea (Glass)'
     'Cookies & Cream Frappe',
-    'Strawberry & Cream Frappe',
-    'Mango Cheesecake Frappe'
+    'Mango cheese cake HC'
 ],
+
 'lemon_juice': [
     'Blue Lemonade'
 ],
 'blue_syrup': [
     'Blue Lemonade'
 ],
-'tea': [
+'Tea': [
     'Red Tea (Glass)',  // Fixed: Changed from 'Red Tea' to 'Red Tea (Glass)'
-    'Milk Tea',
+    'Milk Tea Regular HC',  
+    'Milk Tea Regular MC',
     'Matcha Green Tea'
 ],
+
 'carbonated_soft_drink': [
     'Soda (Mismo / 1.5L)'
 ],
@@ -1858,25 +2010,11 @@ const recipeMapping = {
 'steamed_milk': [
     'Cafe Latte'
 ],
-'milk': [
-    'Caramel Macchiato',
-    'Milk Tea',
-    'Matcha Green Tea',
-    'Cookies & Cream Frappe',
-    'Strawberry & Cream Frappe',
-    'Mango Cheesecake Frappe'
-],
 'caramel_syrup': [
     'Caramel Macchiato'
 ],
 'vanilla_syrup': [
     'Caramel Macchiato'
-],
-'black_tea': [
-    'Milk Tea'
-],
-'tapioca_pearls': [
-    'Milk Tea'
 ],
 'matcha_powder': [
     'Matcha Green Tea'
@@ -1884,15 +2022,419 @@ const recipeMapping = {
 'cookie_crumbs': [
     'Cookies & Cream Frappe'
 ],
-'strawberry_syrup': [
-    'Strawberry & Cream Frappe'
+'Strawberry syrup': [
+    'Strawberry & Cream HC'
 ],
 'mango_flavor': [
-    'Mango Cheesecake Frappe'
+    'Mango cheese cake HC'
 ],
 'cream_cheese_flavor': [
-    'Mango Cheesecake Frappe'
-]
+    'Mango cheese cake HC'
+],
+
+    // ================ ADDITIONAL MENU ITEM ALIASES (fallback entries) ================
+    // PANCIT SIZES
+    'Pancit Bihon (S)': [
+        'Pancit Bihon',
+        'Garlic',
+        'Onion',
+        'Carrots',
+        'Soy sauce',
+        'Oyster sauce',
+        'Cooking oil',
+        'Salt',
+        'Black pepper'
+    ],
+    
+    // SPAGHETTI VARIANTS
+    'Spaghetti (Filipino Style)': [
+        'Spaghetti pasta',
+        'Garlic',
+        'Onion',
+        'Tomato',
+        'Sweet tomato sauce',
+        'Cooking oil',
+        'Salt',
+        'Sugar'
+    ],
+    'Spaghetti (Filipino Style) (S)': [
+        'Spaghetti pasta',
+        'Garlic',
+        'Onion',
+        'Tomato',
+        'Sweet tomato sauce',
+        'Cooking oil',
+        'Salt',
+        'Sugar'
+    ],
+    'Spaghetti (Filipino Style) (M)': [
+        'Spaghetti pasta',
+        'Garlic',
+        'Onion',
+        'Tomato',
+        'Sweet tomato sauce',
+        'Cooking oil',
+        'Salt',
+        'Sugar'
+    ],
+    
+    // RICE VARIANTS
+    'Plain Rice': [
+        'Rice',
+        'Salt',
+        'Water'
+    ],
+    'Fried Rice': [
+        'Rice',
+        'Egg',
+        'Garlic',
+        'Onion',
+        'Sesame oil',
+        'Soy sauce',
+        'Sugar',
+        'Cooking oil'
+    ],
+    
+    // FRENCH FRIES
+    'French Fries': [
+        'French fries',
+        'Salt',
+        'Cooking oil'
+    ],
+    
+    // CHEESY NACHOS
+    'Cheesy Nachos': [
+        'Nacho chips',
+        'Cheese sauce',
+        'Onion',
+        'Cooking oil'
+    ],
+    'Nachos Supreme': [
+        'Nacho chips',
+        'Cheese sauce',
+        'Onion',
+        'Cheese',
+        'Cooking oil'
+    ],
+    
+    // CHEESY DYNAMITE LUMPIA
+    'Cheesy Dynamite Lumpia': [
+        'Lumpiang wrapper',
+        'Cheese',
+        'Cheese sauce',
+        'Chili',
+        'Cornstarch',
+        'Cooking oil'
+    ],
+    
+    // LUMPIANG SHANGHAI
+    'Lumpiang Shanghai': [
+        'Lumpiang wrapper',
+        'Ground meat',
+        'Garlic',
+        'Onion',
+        'Carrots',
+        'Cornstarch',
+        'Cooking oil'
+    ],
+    
+    // FISH & FRIES
+    'Fish and Fries': [
+        'Cream dory',
+        'Flour',
+        'Breadcrumbs',
+        'Egg',
+        'French fries',
+        'Salt',
+        'Black pepper',
+        'Cooking oil'
+    ],
+    
+    // TINAPA RICE
+    'Tinapa Rice': [
+        'Rice',
+        'Tinapa',
+        'Salt',
+        'Cooking oil'
+    ],
+    
+    // TUYO PESTO
+    'Tuyo Pesto': [
+        'Rice',
+        'Tuyo',
+        'Shrimp paste',
+        'Lemon juice',
+        'Cooking oil'
+    ],
+    
+    // SINIGANG
+    'Sinigang (Pork)': [
+        'Pork',
+        'Tamarind mix',
+        'Onion',
+        'Tomato',
+        'Radish',
+        'Kangkong',
+        'Shrimp paste',
+        'Salt',
+        'Black pepper',
+        'Water'
+    ],
+    'Sinigang (Shrimp)': [
+        'Shrimp',
+        'Tamarind mix',
+        'Onion',
+        'Tomato',
+        'Kangkong',
+        'Shrimp paste',
+        'Salt',
+        'Black pepper',
+        'Water'
+    ],
+    
+    // PAKNET
+    'Paknet (Pakbet w/ Bagnet)': [
+        'Bagnet',
+        'Eggplant',
+        'Squash',
+        'Okra',
+        'Ampalaya',
+        'Shrimp paste',
+        'Tomato',
+        'Onion',
+        'Garlic',
+        'Salt',
+        'Black pepper',
+        'Water'
+    ],
+    
+    // SPECIAL BULALO
+    'Special Bulalo': [
+        'Beef shank',
+        'Corn',
+        'Potato',
+        'Cabbage',
+        'Carrots',
+        'Bay leaves',
+        'Peppercorn',
+        'Salt',
+        'Water',
+        'Chicken broth'
+    ],
+    
+    // SPECIAL BULALO VARIANTS
+    'Special Bulalo (good for 2-3 Persons)': [
+        'Beef shank',
+        'Corn',
+        'Potato',
+        'Cabbage',
+        'Carrots',
+        'Bay leaves',
+        'Peppercorn',
+        'Salt',
+        'Water',
+        'Chicken broth'
+    ],
+    
+    'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)': [
+        'Beef shank',
+        'Corn',
+        'Potato',
+        'Cabbage',
+        'Carrots',
+        'Bay leaves',
+        'Peppercorn',
+        'Salt',
+        'Water',
+        'Chicken broth'
+    ],
+    
+    // SINIGANG VARIANTS
+    'Sinigang (PORK)': [
+        'Pork',
+        'Tamarind mix',
+        'Onion',
+        'Tomato',
+        'Radish',
+        'Kangkong',
+        'Shrimp paste',
+        'Salt',
+        'Black pepper',
+        'Water'
+    ],
+    
+    'Sinigang (Shrimp)': [
+        'Shrimp',
+        'Tamarind mix',
+        'Onion',
+        'Tomato',
+        'Kangkong',
+        'Shrimp paste',
+        'Salt',
+        'Black pepper',
+        'Water'
+    ],
+    
+    // PAKNET VARIANT
+    'Paknet (Pakbet w/ Bagnet)': [
+        'Bagnet',
+        'Eggplant',
+        'Squash',
+        'Okra',
+        'Ampalaya',
+        'Shrimp paste',
+        'Tomato',
+        'Onion',
+        'Garlic',
+        'Salt',
+        'Black pepper',
+        'Water'
+    ],
+    
+    // BUTTERED SHRIMP
+    'Buttered Shrimp': [
+        'Shrimp',
+        'Butter',
+        'Calamansi',
+        'Garlic',
+        'Salt',
+        'Black pepper',
+        'Cooking oil'
+    ],
+    
+    // BUDGET FRIED CHICKEN
+    'Budget Fried Chicken': [
+        'Fried chicken',
+        'Flour',
+        'Breadcrumbs',
+        'Egg',
+        'Salt',
+        'Black pepper',
+        'Paprika',
+        'Cooking oil'
+    ],
+    
+    // CLUBHOUSE SANDWICH
+    'Clubhouse Sandwich': [
+        'Bread',
+        'Fried Chicken',
+        'Egg',
+        'Mayonnaise',
+        'Tomato',
+        'Lettuce',
+        'Ham',
+        'Gravy'
+    ],
+    
+    // ADDITIONAL PANCIT & NOODLE ITEMS
+    'Pancit Bihon': [
+        'Pancit Bihon',
+        'Garlic',
+        'Onion',
+        'Carrots',
+        'Soy sauce',
+        'Oyster sauce',
+        'Cooking oil',
+        'Salt',
+        'Black pepper'
+    ],
+    'Pancit Canton + Bihon (Mixed)': [
+        'Pancit canton',
+        'Pancit Bihon',
+        'Garlic',
+        'Onion',
+        'Carrots',
+        'Soy sauce',
+        'Oyster sauce',
+        'Cooking oil',
+        'Salt',
+        'Black pepper'
+    ],
+    
+    // CARROT VARIANTS
+    'Carrot': [
+        'Special Bulalo',
+        'Paknet (Pakbet w/ Bagnet)',
+        'Pancit Bihon',
+        'Pancit Canton + Bihon (Mixed)'
+    ],
+    
+    // 🆕 SPECIALTY ITEMS WITH VARIANTS
+    'Special Bulalo (good for 2-3 Persons)': [
+        'Beef shank',
+        'Corn',
+        'Potato',
+        'Cabbage',
+        'Carrots',
+        'Bay leaves',
+        'Peppercorn',
+        'Salt',
+        'Water',
+        'Chicken broth'
+    ],
+    
+    'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)': [
+        'Beef shank',
+        'Corn',
+        'Potato',
+        'Cabbage',
+        'Carrots',
+        'Bay leaves',
+        'Peppercorn',
+        'Salt',
+        'Water',
+        'Chicken broth'
+    ],
+    
+    'Sinigang (PORK)': [
+        'Pork',
+        'Tamarind mix',
+        'Onion',
+        'Tomato',
+        'Radish',
+        'Kangkong',
+        'Shrimp paste',
+        'Salt',
+        'Black pepper',
+        'Water'
+    ],
+    
+    'Sinigang (Shrimp)': [
+        'Shrimp',
+        'Tamarind mix',
+        'Onion',
+        'Tomato',
+        'Kangkong',
+        'Shrimp paste',
+        'Salt',
+        'Black pepper',
+        'Water'
+    ],
+    
+    'Paknet (Pakbet w/ Bagnet)': [
+        'Bagnet',
+        'Eggplant',
+        'Squash',
+        'Okra',
+        'Ampalaya',
+        'Shrimp paste',
+        'Tomato',
+        'Onion',
+        'Garlic',
+        'Salt',
+        'Black pepper',
+        'Water'
+    ],
+    
+    'Buttered Shrimp': [
+        'Shrimp',
+        'Butter',
+        'Calamansi',
+        'Garlic',
+        'Salt',
+        'Black pepper',
+        'Cooking oil'
+    ]
 };
 
 
@@ -2476,7 +3018,7 @@ const initializeDatabase = async () => {
                 { name: 'Party Tray' },
                 { name: 'Drinks' },
                 { name: 'Coffee' },
-                { name: 'Milk Tea' },
+                { name: 'Milk Tea'},
                 { name: 'Frappe' },
                 { name: 'Snacks & Appetizer' },
                 { name: 'Budget Meals Served with Rice' },

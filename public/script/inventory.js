@@ -68,6 +68,18 @@ const categoryUnitsMapping = {
     'packaging': ['pieces', 'packs']
 };
 
+// ==================== ITEM-SPECIFIC UNITS ====================
+// Override category units for specific items
+const itemSpecificUnits = {
+    'Soda (Mismo)': ['bottle'],
+    'Soda 1.5L': ['bottle'],
+    'Blue Lemonade (Glass)': ['glass'],
+    'Blue Lemonade (Pitcher)': ['pitcher'],
+    'Cucumber Lemonade (Glass)': ['glass'],
+    'Cucumber Lemonade (Pitcher)': ['pitcher'],
+    'Red Tea (Glass)': ['glass']
+};
+
 const validRawIngredients = {
     // ==================== MEAT & POULTRY ====================
     'Pork': 'meat',
@@ -101,6 +113,7 @@ const validRawIngredients = {
     'Bell pepper': 'produce',
     'Calamansi': 'produce',
     'Chili': 'produce',
+    'Siling green': 'produce',
     'Radish': 'produce',
     'Kangkong': 'produce',
     'Eggplant': 'produce',
@@ -144,7 +157,7 @@ const validRawIngredients = {
     'Sweet tomato sauce': 'dry',
     'Pasta Sauce': 'dry',
     'Gravy': 'dry',
-    'Batter': 'dry',
+    'Butter': 'dry',
     'Cheese sauce': 'dry',
     'Ground meat': 'dry',
     'Water': 'dry',
@@ -152,7 +165,6 @@ const validRawIngredients = {
     
     // ==================== NOODLES & PASTA ====================
     'Pancit canton': 'dry',
-    'Rice noodles': 'dry',
     'Spaghetti pasta': 'dry',
     'Pasta': 'dry',
     'Pancit bihon': 'dry',
@@ -169,19 +181,22 @@ const validRawIngredients = {
     'Hot water': 'beverage',
     'Steamed milk': 'beverage',
     'Carbonated soft drink': 'beverage',
-    'Chicken broth': 'beverage',
+    'beef broth': 'beverage',
     'Milk tea base': 'beverage',
     
     // ==================== COFFEE & TEA INGREDIENTS ====================
     'Coffee beans': 'dry',
     'Matcha powder': 'dry',
+    'Matcha Green Tea Powder': 'dry',
     'Caramel syrup': 'dry',
+    'Caramel Sauce': 'dry',
     'Vanilla syrup': 'dry',
     'Strawberry syrup': 'dry',
     'Mango flavor': 'dry',
     'Cream cheese flavor': 'dry',
     'Tapioca pearls': 'dry',
     'Cookie crumbs': 'dry',
+    'Sweetener': 'dry',
     
     // ==================== SNACKS & SIDES ====================
     'Nacho chips': 'dry',
@@ -526,7 +541,7 @@ const recipeMapping = {
     'Pancit canton': [
         'Pancit Canton + Bihon (Mixed)'
     ],
-    'Rice noodles': [
+    'noodles': [
         'Pancit Bihon',
         'Pancit Canton + Bihon (Mixed)'
     ],
@@ -888,12 +903,18 @@ function updateItemNameOptions() {
     elements.itemName.value = currentValue;
 }
 
-function updateUnitOptions(category) {
+function updateUnitOptions(category, itemName = null) {
     if (!elements.itemUnit) return;
     
     elements.itemUnit.innerHTML = '<option value="">Select Unit</option>';
     
-    const units = categoryUnitsMapping[category] || ['pieces', 'kg', 'g', 'liters', 'ml'];
+    // Check if this item has specific unit restrictions
+    let units;
+    if (itemName && itemSpecificUnits[itemName]) {
+        units = itemSpecificUnits[itemName];
+    } else {
+        units = categoryUnitsMapping[category] || ['pieces', 'kg', 'g', 'liters', 'ml'];
+    }
     
     units.forEach(unit => {
         const option = document.createElement('option');
@@ -911,7 +932,6 @@ function autoFillItemFromCategory(category) {
     console.log(`🔄 Auto-filling from category: ${category}`);
     
     elements.itemCategory.value = category;
-    updateUnitOptions(category);
     
     const categoryItems = Object.entries(validRawIngredients)
         .filter(([itemName, itemCategory]) => itemCategory === category)
@@ -932,6 +952,9 @@ function autoFillItemFromCategory(category) {
         // Auto-select the first item
         const firstItem = categoryItems[0];
         elements.itemName.value = firstItem;
+        
+        // Update unit options with first item
+        updateUnitOptions(category, firstItem);
         
         // Auto-fill unit
         const unit = getUnitFromItem(firstItem, category);
@@ -1056,8 +1079,8 @@ function openEditModal(itemId) {
     if (elements.itemType) elements.itemType.value = item.itemType || 'raw';
     if (elements.itemCategory) {
         elements.itemCategory.value = category;
-        // Update unit options based on category
-        updateUnitOptions(category);
+        // Update unit options based on category and item name
+        updateUnitOptions(category, item.itemName);
     }
     
     if (elements.itemUnit) {
@@ -1629,8 +1652,8 @@ const ingredientNameMapping = {
     'Cream dory': 'Cream dory',
     'Fish fillet': 'Fish',
     'Fish': 'Fish',
-    'Pancit bihon': 'Rice noodles',
-    'Rice noodles': 'Rice noodles',
+    'Pancit bihon': 'noodles',
+    'noodles': 'noodles',
     'Pancit canton': 'Pancit canton',
     'Spaghetti pasta': 'Spaghetti pasta',
     'Lumpiang wrapper': 'Lumpiang wrapper',
@@ -2124,7 +2147,7 @@ function updateFromItemName() {
     if (elements.itemType) elements.itemType.value = 'raw';
     if (elements.itemCategory) {
         elements.itemCategory.value = category;
-        updateUnitOptions(category);
+        updateUnitOptions(category, itemName);
     }
     if (elements.itemUnit) {
         elements.itemUnit.value = unit;
@@ -2493,7 +2516,8 @@ function initializeEventListeners() {
             const category = this.value;
             if (category) {
                 filterIngredientsByCategory(category);
-                updateUnitOptions(category);
+                const itemName = elements.itemName ? elements.itemName.value : null;
+                updateUnitOptions(category, itemName);
             }
         });
     }
@@ -3227,7 +3251,7 @@ window.getAvailableMenuItems = getAvailableMenuItems;
         'Sizzling Porkchop': ['Pork', 'Pork chop', 'Garlic', 'Cooking oil', 'Salt', 'Rice', 'Food containers', 'Napkins'],
         'Buttered Honey Chicken': ['Chicken', 'Butter', 'Honey', 'Rice', 'Food containers', 'Napkins'],
         'Buttered Spicy Chicken': ['Chicken', 'Butter', 'Rice', 'Food containers', 'Napkins'],
-        'Chicken Adobo': ['Chicken', 'Garlic', 'Onion', 'Tomato', 'Soy sauce', 'Salt', 'Bay leaves', 'Rice', 'Food containers', 'Napkins'],
+        'Chicken Adobo': ['Chicken', 'Garlic', 'Onion', 'Tomato', 'Soy sauce', 'Salt', 'Bay leaves', 'Rice','Black Pepper','Plates', 'Napkins'],
         'Sizzling Fried Chicken': ['Chicken', 'Garlic', 'Cooking oil', 'Salt', 'Rice', 'Food containers', 'Napkins'],
         'Clubhouse Sandwich': ['Chicken', 'Bread', 'Mayonnaise', 'Gravy', 'Napkins'],
         'Budget Fried Chicken': ['Fried chicken', 'Cooking oil', 'Salt', 'Breadcrumbs', 'Flour', 'Rice', 'Food containers', 'Napkins'],
@@ -3238,8 +3262,8 @@ window.getAvailableMenuItems = getAvailableMenuItems;
         'Paknet (Pakbet w/ Bagnet)': ['Bagnet', 'Garlic', 'Onion', 'Tomato', 'Cucumber', 'Corn', 'Potato', 'Vegetables', 'Salt', 'Black pepper', 'Rice', 'Food containers', 'Napkins'],
         'Tinapa Rice': ['Tinapa', 'Rice', 'Food containers', 'Napkins'],
         'Tuyo Pesto': ['Tuyo', 'Shrimp paste', 'Rice', 'Food containers', 'Napkins'],
-        'Pancit Bihon': ['Rice noodles', 'Garlic', 'Onion', 'Carrot', 'Soy sauce', 'Oyster sauce', 'Food containers'],
-        'Pancit Canton + Bihon (Mixed)': ['Pancit canton', 'Rice noodles', 'Garlic', 'Onion', 'Carrot', 'Soy sauce', 'Oyster sauce', 'Food containers'],
+        'Pancit Bihon': [' noodles', 'Garlic', 'Onion', 'Carrot', 'Soy sauce', 'Oyster sauce', 'Food containers'],
+        'Pancit Canton + Bihon (Mixed)': ['Pancit canton', 'noodles', 'Garlic', 'Onion', 'Carrot', 'Soy sauce', 'Oyster sauce', 'Food containers'],
         'Spaghetti (Filipino Style)': ['Spaghetti pasta', 'Garlic', 'Onion', 'Tomato', 'Soy sauce', 'Sweet tomato sauce', 'Food containers'],
         'Fried Rice': ['Rice', 'Garlic', 'Onion', 'Sesame oil', 'Soy sauce', 'Cooking oil', 'Salt', 'Sugar', 'Egg', 'Water', 'Food containers'],
         'Plain Rice': ['Rice', 'Salt', 'Water', 'Food containers'],

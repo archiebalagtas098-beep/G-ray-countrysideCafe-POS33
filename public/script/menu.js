@@ -29,13 +29,13 @@ const INVENTORY_CACHE_DURATION = 5000;
 
 // ==================== INGREDIENT INVENTORY ====================
 const ingredientInventory = {
-    'pork': { name: 'Pork', current: 100, max: 500, unit: 'kg', minThreshold: 20 },
-    'chicken': { name: 'Chicken', current: 100, max: 300, unit: 'kg', minThreshold: 15 },
-    'beef': { name: 'Beef', current: 50, max: 100, unit: 'kg', minThreshold: 10 },
-    'shrimp': { name: 'Shrimp', current: 50, max: 100, unit: 'kg', minThreshold: 8 },
-    'fish': { name: 'Cream Dory', current: 50, max: 150, unit: 'kg', minThreshold: 10 },
-    'pork_belly': { name: 'Pork Belly', current: 50, max: 100, unit: 'kg', minThreshold: 10 },
-    'pork_chop': { name: 'Pork Chop', current: 50, max: 80, unit: 'kg', minThreshold: 8 },
+    'Pork': { name: 'Pork', current: 100, max: 500, unit: 'kg', minThreshold: 20 },
+    'Chicken': { name: 'Chicken', current: 100, max: 300, unit: 'kg', minThreshold: 15 },
+    'Beef': { name: 'Beef', current: 50, max: 100, unit: 'kg', minThreshold: 10 },
+    'Shrimp': { name: 'Shrimp', current: 50, max: 100, unit: 'kg', minThreshold: 8 },
+    'Cream Dory': { name: 'Cream Dory', current: 50, max: 150, unit: 'kg', minThreshold: 10 },
+    'Pork Belly': { name: 'Pork Belly', current: 50, max: 100, unit: 'kg', minThreshold: 10 },
+    'Pork Chop': { name: 'Pork Chop', current: 50, max: 80, unit: 'kg', minThreshold: 8 },
     'onion': { name: 'Onion', current: 30, max: 50, unit: 'kg', minThreshold: 5 },
     'garlic': { name: 'Garlic', current: 20, max: 30, unit: 'kg', minThreshold: 3 },
     'cabbage': { name: 'Cabbage', current: 30, max: 40, unit: 'kg', minThreshold: 5 },
@@ -78,7 +78,12 @@ const ingredientInventory = {
     'sugar': { name: 'Sugar', current: 30, max: 50, unit: 'kg', minThreshold: 10 },
     'salt': { name: 'Salt', current: 30, max: 50, unit: 'kg', minThreshold: 10 },
     'black_pepper': { name: 'Black Pepper', current: 20, max: 30, unit: 'kg', minThreshold: 5 },
-    'water': { name: 'Water', current: 100, max: 100, unit: 'liter', minThreshold: 30 }
+    'water': { name: 'Water', current: 100, max: 100, unit: 'liter', minThreshold: 30 },
+    'beef_shank': { name: 'Beef Shank', current: 50, max: 100, unit: 'kg', minThreshold: 10 },
+    'bay_leaves': { name: 'Bay Leaves', current: 10, max: 20, unit: 'piece', minThreshold: 3 },
+    'peppercorn': { name: 'Peppercorn', current: 5, max: 10, unit: 'kg', minThreshold: 1 },
+    'chicken_broth': { name: 'Chicken Broth', current: 20, max: 30, unit: 'liter', minThreshold: 5 },
+    'corn': { name: 'Corn', current: 30, max: 50, unit: 'kg', minThreshold: 10 }
 };
 
 // ==================== SERVINGWARE INVENTORY ====================
@@ -100,19 +105,19 @@ const servingwareInventory = {
 // ==================== PRODUCT INGREDIENT MAPPING ====================
 const productIngredientMap = {
     'Korean Spicy Bulgogi (Pork)': {
-        ingredients: { 'pork': 0.25, 'gochujang': 0.03, 'soy_sauce': 0.03, 'garlic': 0.02, 'onion': 0.05, 'sugar': 0.01, 'sesame_oil': 0.02, 'chili_flakes': 0.005, 'black_pepper': 0.005 },
+        ingredients: { 'Pork': 0.25, 'gochujang': 0.03, 'soy_sauce': 0.03, 'garlic': 0.02, 'onion': 0.05, 'sugar': 0.01, 'sesame_oil': 0.02, 'chili flakes': 0.005, 'black_pepper': 0.005 },
         servingware: 'plate'
     },
     'Korean Salt and Pepper (Pork)': {
-        ingredients: { 'pork': 0.25, 'salt': 0.01, 'black_pepper': 0.01, 'garlic': 0.02, 'chili': 0.005, 'cornstarch': 0.02 },
+        ingredients: { 'Pork': 0.25, 'salt': 0.01, 'black_pepper': 0.01, 'garlic': 0.02, 'chili flakes': 0.005, 'cornstarch': 0.02 },
         servingware: 'plate'
     },
     'Crispy Pork Lechon Kawali': {
-        ingredients: { 'pork_belly': 0.35, 'garlic': 0.03, 'bay_leaves': 2, 'peppercorn': 0.01, 'salt': 0.01, 'cooking_oil': 0.25 },
+        ingredients: { 'Pork Belly': 0.35, 'garlic': 0.03, 'bay_leaves': 2, 'peppercorn': 0.01, 'salt': 0.01, 'cooking_oil': 0.25 },
         servingware: 'plate'
     },
     'Cream Dory Fish Fillet': {
-        ingredients: { 'cream_dory': 0.25, 'flour': 0.05, 'salt': 0.01, 'black_pepper': 0.005, 'butter': 0.05, 'garlic': 0.02, 'cream': 0.1 },
+        ingredients: { 'Cream Dory': 0.25, 'flour': 0.05, 'salt': 0.01, 'black_pepper': 0.005, 'butter': 0.05, 'garlic': 0.02, 'cream': 0.1 },
         servingware: 'plate'
     },
     'Buttered Honey Chicken': {
@@ -120,7 +125,7 @@ const productIngredientMap = {
         servingware: 'plate'
     },
     'Buttered Spicy Chicken': {
-        ingredients: { 'chicken': 0.25, 'butter': 0.05, 'chili_flakes': 0.01, 'garlic': 0.02, 'soy_sauce': 0.02 },
+        ingredients: { 'chicken': 0.25, 'butter': 0.05, 'chili flakes': 0.01, 'garlic': 0.02, 'soy_sauce': 0.02 },
         servingware: 'plate'
     },
     'Chicken Adobo': {
@@ -128,19 +133,19 @@ const productIngredientMap = {
         servingware: 'plate'
     },
     'Pork Shanghai': {
-        ingredients: { 'ground_pork': 0.2, 'carrot': 0.03, 'onion': 0.03, 'garlic': 0.02, 'egg': 1, 'breadcrumbs': 0.03, 'lumpia_wrapper': 10, 'cooking_oil': 0.1 },
+        ingredients: { 'Ground Pork': 0.2, 'carrot': 0.03, 'onion': 0.03, 'garlic': 0.02, 'egg': 1, 'breadcrumbs': 0.03, 'lumpia_wrapper': 10, 'cooking_oil': 0.1 },
         servingware: 'plate'
     },
     'Sizzling Pork Sisig': {
-        ingredients: { 'pork': 0.3, 'onion': 0.08, 'chili': 0.02, 'calamansi': 0.03, 'mayonnaise': 0.05, 'soy_sauce': 0.02, 'egg': 1, 'cooking_oil': 0.1 },
+        ingredients: { 'Pork': 0.3, 'onion': 0.08, 'chili': 0.02, 'calamansi': 0.03, 'mayonnaise': 0.05, 'soy_sauce': 0.02, 'egg': 1, 'cooking_oil': 0.1 },
         servingware: 'sizzling plate'
     },
     'Sizzling Liempo': {
-        ingredients: { 'pork_belly': 0.3, 'garlic': 0.02, 'soy_sauce': 0.03, 'black_pepper': 0.01, 'cooking_oil': 0.1 },
+        ingredients: { 'Pork Belly': 0.3, 'garlic': 0.02, 'soy_sauce': 0.03, 'black_pepper': 0.01, 'cooking_oil': 0.1 },
         servingware: 'sizzling plate'
     },
     'Sizzling Porkchop': {
-        ingredients: { 'pork_chop': 0.35, 'garlic': 0.02, 'soy_sauce': 0.03, 'black_pepper': 0.01, 'cooking_oil': 0.1 },
+        ingredients: { 'Pork Chop': 0.35, 'garlic': 0.02, 'soy_sauce': 0.03, 'black_pepper': 0.01, 'cooking_oil': 0.1 },
         servingware: 'sizzling plate'
     },
     'Sizzling Fried Chicken': {
@@ -152,7 +157,7 @@ const productIngredientMap = {
         servingware: 'tray'
     },
     'Pancit Canton + Bihon (Mixed)': {
-        ingredients: { 'pancit_canton': 0.3, 'rice_noodles': 0.3, 'chicken': 0.15, 'cabbage': 0.2, 'carrot': 0.15, 'garlic': 0.04, 'onion': 0.08, 'soy_sauce': 0.08, 'oyster_sauce': 0.03, 'chicken_broth': 0.2, 'cooking_oil': 0.08 },
+        ingredients: { 'Pancit Canton': 0.3, 'Bihon noodles': 0.3, 'chicken': 0.15, 'cabbage': 0.2, 'carrot': 0.15, 'garlic': 0.04, 'onion': 0.08, 'soy_sauce': 0.08, 'oyster_sauce': 0.03, 'chicken_broth': 0.2, 'cooking_oil': 0.08 },
         servingware: 'tray'
     },
     'Spaghetti': {
@@ -200,11 +205,11 @@ const productIngredientMap = {
         servingware: 'cup'
     },
     'Strawberry & Cream Frappe': {
-        ingredients: { 'strawberry_syrup': 0.05, 'milk': 0.2, 'ice': 0.2, 'cream': 0.1 },
+        ingredients: { 'Strawberry syrup': 0.05, 'milk': 0.2, 'ice': 0.2, 'cream': 0.1 },
         servingware: 'cup'
     },
     'Mango Cheesecake Frappe': {
-        ingredients: { 'mango_flavor': 0.05, 'cream_cheese_flavor': 0.03, 'milk': 0.2, 'ice': 0.2 },
+        ingredients: { 'Mango syrup': 0.05, 'cream_cheese_flavor': 0.03, 'milk': 0.2, 'ice': 0.2 },
         servingware: 'cup'
     },
     'Cheesy Nachos': {
@@ -228,11 +233,11 @@ const productIngredientMap = {
         servingware: 'serving'
     },
     'Cheesy Dynamite Lumpia': {
-        ingredients: { 'chili': 0.05, 'cheese': 0.05, 'lumpia_wrapper': 10, 'cooking_oil': 0.1 },
+        ingredients: { 'Siling Green': 0.05, 'cheese': 0.05, 'lumpia_wrapper': 10, 'cooking_oil': 0.1 },
         servingware: 'plate'
     },
     'Lumpiang Shanghai': {
-        ingredients: { 'ground_pork': 0.15, 'vegetables': 0.1, 'lumpia_wrapper': 15, 'cooking_oil': 0.15 },
+        ingredients: { 'Ground Pork': 0.15, 'vegetables': 0.1, 'lumpia_wrapper': 15, 'cooking_oil': 0.15 },
         servingware: 'plate'
     },
     'Fried Chicken': {
@@ -256,11 +261,11 @@ const productIngredientMap = {
         servingware: 'bowl'
     },
     'Sinigang (Pork)': {
-        ingredients: { 'pork': 0.4, 'tamarind_mix': 0.05, 'tomato': 0.05, 'onion': 0.05, 'radish': 0.1, 'kangkong': 0.1 },
+        ingredients: { 'Pork': 0.4, 'tamarind_mix': 0.05, 'tomato': 0.05, 'onion': 0.05, 'radish': 0.1, 'kangkong': 0.1 },
         servingware: 'pot'
     },
     'Sinigang (Shrimp)': {
-        ingredients: { 'shrimp': 0.35, 'tamarind_mix': 0.05, 'tomato': 0.05, 'onion': 0.05, 'kangkong': 0.1 },
+        ingredients: { 'Shrimp': 0.35, 'tamarind_mix': 0.05, 'tomato': 0.05, 'onion': 0.05, 'kangkong': 0.1 },
         servingware: 'pot'
     },
     'Paknet (Pakbet w/ Bagnet)': {
@@ -272,7 +277,15 @@ const productIngredientMap = {
         servingware: 'serving'
     },
     'Special Bulalo': {
-        ingredients: { 'beef_shank': 0.8, 'corn': 0.1, 'cabbage': 0.3, 'potato': 0.2, 'onion': 0.1, 'peppercorn': 0.01 },
+        ingredients: { 'Beef Shank': 0.8, 'corn': 0.1, 'cabbage': 0.3, 'potato': 0.2, 'onion': 0.1, 'peppercorn': 0.01 },
+        servingware: 'pot'
+    },
+    'Special Bulalo (good for 2-3 Persons)': {
+        ingredients: { 'Beef Shank': 0.8, 'corn': 0.1, 'potato': 0.2, 'cabbage': 0.3, 'carrot': 0.15, 'bay_leaves': 2, 'peppercorn': 0.01, 'salt': 0.01, 'water': 1.5, 'beef_broth': 0.2 },
+        servingware: 'pot'
+    },
+    'Special Bulalo Buy 1 Take 1 (good for 6-8 Persons)': {
+        ingredients: { 'Beef Shank': 1.6, 'corn': 0.2, 'potato': 0.4, 'cabbage': 0.6, 'carrot': 0.3, 'bay_leaves': 4, 'peppercorn': 0.02, 'salt': 0.02, 'water': 3.0, 'beef_broth': 0.4 },
         servingware: 'pot'
     },
     'Paper Cups (12oz)': {
